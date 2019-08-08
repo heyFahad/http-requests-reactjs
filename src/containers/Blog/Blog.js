@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
@@ -22,6 +23,13 @@ class Blog extends Component {
                 </section>
             </div>
         );
+    }
+
+    componentDidMount() {
+        axios.get('http://jsonplaceholder.typicode.com/posts')
+            .then(response => {
+                console.log(response.data);
+            });
     }
 }
 
