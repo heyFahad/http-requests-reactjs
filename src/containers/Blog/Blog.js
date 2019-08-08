@@ -16,7 +16,8 @@ class Blog extends Component {
             post => {
                 return <Post
                     key={post.id}
-                    title={post.title} />
+                    title={post.title}
+                    author={post.author} />
             }
         );
 
@@ -38,8 +39,17 @@ class Blog extends Component {
     componentDidMount() {
         axios.get('http://jsonplaceholder.typicode.com/posts')
             .then(response => {
-                // save the response data (posts in this case) in the component's state to cause a re-render
-                this.setState({ posts: response.data });
+                // query the response data (posts in this case), transform it, and then store it in the component's state to cause a re-render
+                const posts = response.data.slice(0, 4);
+                const updatedPosts = posts.map(
+                    post => {
+                        return {
+                            ...post,
+                            author: 'Max'
+                        }
+                    }
+                );
+                this.setState({ posts: updatedPosts });
             });
     }
 }
