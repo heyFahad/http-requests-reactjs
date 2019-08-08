@@ -7,13 +7,23 @@ import NewPost from '../../components/NewPost/NewPost';
 import './Blog.css';
 
 class Blog extends Component {
-    render () {
+    state = {
+        posts: []
+    }
+
+    render() {
+        const posts = this.state.posts.map(
+            post => {
+                return <Post
+                    key={post.id}
+                    title={post.title} />
+            }
+        );
+
         return (
             <div>
                 <section className="Posts">
-                    <Post />
-                    <Post />
-                    <Post />
+                    {posts}
                 </section>
                 <section>
                     <FullPost />
@@ -28,7 +38,8 @@ class Blog extends Component {
     componentDidMount() {
         axios.get('http://jsonplaceholder.typicode.com/posts')
             .then(response => {
-                console.log(response.data);
+                // save the response data (posts in this case) in the component's state to cause a re-render
+                this.setState({ posts: response.data });
             });
     }
 }
