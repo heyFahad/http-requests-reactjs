@@ -49,7 +49,7 @@ class Blog extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://jsonplaceholder.typicode.com/postssss')
+        axios.get('http://jsonplaceholder.typicode.com/posts')
             .then(response => {
                 // query the response data (posts in this case), transform it, and then store it in the component's state to cause a re-render
                 const posts = response.data.slice(0, 4);
