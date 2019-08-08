@@ -9,23 +9,29 @@ import './Blog.css';
 class Blog extends Component {
     state = {
         posts: [],
-        selectedPostId: null
+        selectedPostId: null,
+        error: false
     }
 
     postSelectedHandler = (id) => {
-        this.setState({selectedPostId: id});
+        this.setState({ selectedPostId: id });
     }
 
     render() {
-        const posts = this.state.posts.map(
-            post => {
-                return <Post
-                    key={post.id}
-                    title={post.title}
-                    author={post.author}
-                    selected={() => this.postSelectedHandler(post.id)} />
-            }
-        );
+        let posts = <p style={{ textAlign: 'center' }}>
+            Something went wrong while fetching the posts data!
+        </p>
+        if (!this.state.error) {
+            posts = this.state.posts.map(
+                post => {
+                    return <Post
+                        key={post.id}
+                        title={post.title}
+                        author={post.author}
+                        selected={() => this.postSelectedHandler(post.id)} />
+                }
+            );
+        }
 
         return (
             <div>
@@ -33,7 +39,7 @@ class Blog extends Component {
                     {posts}
                 </section>
                 <section>
-                    <FullPost id={this.state.selectedPostId}/>
+                    <FullPost id={this.state.selectedPostId} />
                 </section>
                 <section>
                     <NewPost />
@@ -43,7 +49,7 @@ class Blog extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://jsonplaceholder.typicode.com/posts')
+        axios.get('http://jsonplaceholder.typicode.com/postssss')
             .then(response => {
                 // query the response data (posts in this case), transform it, and then store it in the component's state to cause a re-render
                 const posts = response.data.slice(0, 4);
@@ -56,6 +62,10 @@ class Blog extends Component {
                     }
                 );
                 this.setState({ posts: updatedPosts });
+            })
+            .catch(error => {
+                // console.log(error);
+                this.setState({error: true})
             });
     }
 }
