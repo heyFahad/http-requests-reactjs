@@ -13,8 +13,8 @@ class FullPost extends Component {
             .then(
                 response => {
                     console.log(response);
-                    this.setState({loadedPost: null});
-                    this.props.history.push("/");
+                    this.setState({ loadedPost: null });
+                    this.props.history.push("/posts");
                 }
             );
     }
@@ -40,8 +40,16 @@ class FullPost extends Component {
     }
 
     componentDidMount() {
+        this.loadPostData();
+    }
+
+    componentDidUpdate() {
+        this.loadPostData();
+    }
+
+    loadPostData = () => {
         if (this.props.match.params.postId) {
-            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id != this.props.match.params.postId)) {
+            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.postId)) {
                 axios.get('/posts/' + this.props.match.params.postId)
                     .then(response => {
                         this.setState({ loadedPost: response.data });
