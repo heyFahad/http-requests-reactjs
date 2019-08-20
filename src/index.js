@@ -11,23 +11,23 @@ axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 axios.interceptors.request.use(
     requestConfig => {
-        console.log(requestConfig);
+        // console.log(requestConfig);
         // can also edit the request config before before returning it
         return requestConfig;
     },
     error => {
-        console.log(error);
+        // console.log(error);
         return Promise.reject(error);
     }
 );
 
 axios.interceptors.response.use(
     response => {
-        console.log(response);
+        // console.log(response);
         return response;
     },
     error => {
-        console.log(error);
+        // console.log(error);
         return Promise.reject(error);
     }
 );

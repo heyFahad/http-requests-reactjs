@@ -36,6 +36,7 @@ class Posts extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
         axios.get('/posts')
             .then(response => {
                 // query the response data (posts in this case), transform it, and then store it in the component's state to cause a re-render
