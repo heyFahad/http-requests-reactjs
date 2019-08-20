@@ -23,7 +23,6 @@ class Posts extends Component {
                         key={post.id}
                         title={post.title}
                         author={post.author}
-                        // {...this.props}      // One way of passing routing-related props. Other method is to use withRouter HOC, which is used in Post.js component
                         selected={() => this.postSelectedHandler(post.id)} />
                 }
             );
@@ -37,7 +36,6 @@ class Posts extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         axios.get('/posts')
             .then(response => {
                 // query the response data (posts in this case), transform it, and then store it in the component's state to cause a re-render

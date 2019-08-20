@@ -42,10 +42,6 @@ class NewPost extends Component {
             </div>
         );
     }
-
-    componentDidMount() {
-        console.log(this.props);
-    }
 }
 
 export default NewPost;
