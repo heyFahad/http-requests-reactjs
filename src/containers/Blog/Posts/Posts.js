@@ -23,6 +23,7 @@ class Posts extends Component {
                         key={post.id}
                         title={post.title}
                         author={post.author}
+                        // {...this.props}      // One way of passing routing-related props. Other method is to use withRouter HOC, which is used in Post.js component
                         selected={() => this.postSelectedHandler(post.id)} />
                 }
             );
