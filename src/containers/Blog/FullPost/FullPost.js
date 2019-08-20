@@ -14,6 +14,7 @@ class FullPost extends Component {
                 response => {
                     console.log(response);
                     this.setState({loadedPost: null});
+                    this.props.history.push("/");
                 }
             );
     }
@@ -39,9 +40,8 @@ class FullPost extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         if (this.props.match.params.postId) {
-            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.postId)) {
+            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id != this.props.match.params.postId)) {
                 axios.get('/posts/' + this.props.match.params.postId)
                     .then(response => {
                         this.setState({ loadedPost: response.data });
