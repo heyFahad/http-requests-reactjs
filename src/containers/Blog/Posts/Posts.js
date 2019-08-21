@@ -3,8 +3,15 @@ import { Route } from 'react-router-dom';
 import axios from 'axios';
 
 import Post from '../../../components/Post/Post';
-import FullPost from '../FullPost/FullPost';
+// import FullPost from '../FullPost/FullPost';
+import asyncComponent from '../../../hoc/asyncComponent';
 import './Posts.css';
+
+const AsyncFullPost = asyncComponent(
+    () => {
+        return import('../FullPost/FullPost');
+    }
+);
 
 class Posts extends Component {
     state = {
@@ -39,7 +46,8 @@ class Posts extends Component {
                 <section className="Posts">
                     {posts}
                 </section>
-                <Route path={this.props.match.url + "/:postId"} exact component={FullPost} />
+                {/* <Route path={this.props.match.url + "/:postId"} exact component={FullPost} /> */}
+                <Route path={this.props.match.url + "/:postId"} exact component={AsyncFullPost} />
             </div>
         );
     }
